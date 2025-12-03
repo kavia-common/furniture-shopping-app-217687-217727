@@ -9,3 +9,18 @@
 tasks.register("clean", Delete) {
     delete(rootProject.layout.buildDirectory)
 }
+
+/*
+ Provide repositories at the root project level for any legacy/auxiliary
+ configurations that may not honor dependencyResolutionManagement during
+ plugin execution (e.g., lint or transform tasks). This ensures non-Flutter
+ artifacts like Kotlin stdlib and AndroidX resolve from the correct sources.
+ */
+allprojects {
+    repositories {
+        google()
+        mavenCentral()
+        // Keep Flutter artifacts repository available but after standard repos
+        maven { url "https://storage.googleapis.com/download.flutter.io" }
+    }
+}
