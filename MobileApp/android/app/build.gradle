@@ -1,36 +1,31 @@
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
-    // Flutter plugin resolved via includeBuild in settings.gradle
     id("dev.flutter.flutter-gradle-plugin")
 }
 
-// Load Flutter SDK path from local.properties to derive versioning (no legacy apply from)
+// Load versioning from local.properties (optional)
 def localProperties = new Properties()
 def localPropertiesFile = rootProject.file("local.properties")
 if (localPropertiesFile.exists()) {
-    localPropertiesFile.withReader("UTF-8") { reader ->
-        localProperties.load(reader)
-    }
+    localPropertiesFile.withReader("UTF-8") { reader -> localProperties.load(reader) }
 }
-def flutterVersionCode = localProperties.getProperty("flutter.versionCode") ?: "1"
-def flutterVersionName = localProperties.getProperty("flutter.versionName") ?: "1.0"
+def flutterVersionCode = (localProperties.getProperty("flutter.versionCode") ?: "1") as String
+def flutterVersionName = (localProperties.getProperty("flutter.versionName") ?: "1.0") as String
 
 // PUBLIC_INTERFACE
 android {
     /**
      * Android build configuration for the Flutter app.
-     * Ensures namespace and SDK versions are defined locally so Gradle can resolve compileSdk.
-     *
      * Using modern Gradle DSL with explicit compile/target SDK 34 and Java/Kotlin 17.
      */
     namespace "com.example.mobileapp"
-    compileSdk = 34
+    compileSdk 34
 
     defaultConfig {
         applicationId "com.example.mobileapp"
-        minSdk = 21
-        targetSdk = 34
+        minSdk 21
+        targetSdk 34
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
         multiDexEnabled true
@@ -39,7 +34,6 @@ android {
 
     buildTypes {
         release {
-            // Keep release simple; R8/Proguard tuning can be adjusted later
             minifyEnabled false
             shrinkResources false
             proguardFiles getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro"
@@ -58,10 +52,7 @@ android {
     }
     packagingOptions {
         resources {
-            excludes += [
-                "/META-INF/{AL2.0,LGPL2.1}",
-                "META-INF/DEPENDENCIES"
-            ]
+            excludes += ["/META-INF/{AL2.0,LGPL2.1}", "META-INF/DEPENDENCIES"]
         }
     }
 }
