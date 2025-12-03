@@ -1,10 +1,12 @@
 pluginManagement {
     // Ensure plugin repositories are available to resolve plugins via the plugins DSL
     repositories {
-        // Both pluginManagement and dependencyResolutionManagement must include these
+        // Keep standard sources
         google()
         mavenCentral()
         gradlePluginPortal()
+        // Add Flutter Android artifacts repository
+        maven { url 'https://storage.googleapis.com/download.flutter.io' }
     }
     // Explicit plugin versions so module build files can resolve without legacy buildscript
     plugins {
@@ -35,13 +37,13 @@ if (flutterSdk != null && new File(flutterSdk).exists()) {
 }
 
 dependencyResolutionManagement {
-    // Prefer settings repositories to avoid plugin adding project-level repositories
-    repositoriesMode.set(RepositoriesMode.PREFER_SETTINGS)
+    // Prefer project-level repositories to allow plugin-added repos (e.g., Flutter)
+    repositoriesMode.set(RepositoriesMode.PREFER_PROJECT)
     repositories {
-        // Ensure both google and mavenCentral and gradlePluginPortal are present
+        // Ensure standard sources and Flutter artifacts repository are present
         google()
         mavenCentral()
-        gradlePluginPortal()
+        maven { url 'https://storage.googleapis.com/download.flutter.io' }
     }
 }
 
