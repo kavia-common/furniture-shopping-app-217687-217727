@@ -7,7 +7,14 @@ plugins {
   id 'dev.flutter.flutter-gradle-plugin'
 }
 
-// PUBLIC_INTERFACE
+/**
+ * PUBLIC_INTERFACE
+ * Android configuration for the Flutter application.
+ * - compileSdk: 34
+ * - minSdk/targetSdk: 21/34
+ * - Kotlin jvmTarget: 17
+ * - Release: minifyEnabled=false, shrinkResources=false
+ */
 android {
   namespace 'com.example.mobileapp'
   compileSdk 34
