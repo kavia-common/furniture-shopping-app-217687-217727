@@ -1,37 +1,31 @@
 pluginManagement {
   repositories {
-    // Prefer official repositories first
+    // Required repositories for Android/Flutter
     google()
     mavenCentral()
     gradlePluginPortal()
-    // Flutter artifacts repository (kept last to avoid taking precedence for AndroidX/Kotlin)
     maven { url 'https://storage.googleapis.com/download.flutter.io' }
-  }
-  // Explicit plugin versions so Gradle can resolve without legacy buildscript
-  plugins {
-    id('com.android.application') version '8.6.1'
-    id('org.jetbrains.kotlin.android') version '2.0.21'
-    // Flutter Gradle plugin will be resolved from the included Flutter tools build
-    id('dev.flutter.flutter-gradle-plugin')
   }
 }
 
 def props = new Properties()
 def lp = file('local.properties')
-if (lp.exists()) lp.withInputStream { props.load(it) }
+if (lp.exists()) {
+  lp.withInputStream { props.load(it) }
+}
 def flutterSdk = props.getProperty('flutter.sdk', System.getenv('FLUTTER_HOME'))
 if (flutterSdk != null) {
+  // Include Flutter tools build so dev.flutter.flutter-gradle-plugin is available
   includeBuild("${flutterSdk}/packages/flutter_tools/gradle")
 }
 
 dependencyResolutionManagement {
-  // Switch to PREFER_SETTINGS to resolve dependencies deterministically from settings repositories
-  repositoriesMode.set(RepositoriesMode.PREFER_SETTINGS)
+  // Prefer project repositories so Flutter plugin can add its internal repository
+  repositoriesMode.set(RepositoriesMode.PREFER_PROJECT)
   repositories {
-    // Keep google and mavenCentral first so standard artifacts resolve there
     google()
     mavenCentral()
-    // Flutter artifacts repository (kept last)
+    // Keep Flutter artifacts repository available
     maven { url 'https://storage.googleapis.com/download.flutter.io' }
   }
 }
