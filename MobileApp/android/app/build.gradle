@@ -1,17 +1,17 @@
 plugins {
-    id("com.android.application")
-    id("org.jetbrains.kotlin.android")
-    id("dev.flutter.flutter-gradle-plugin")
+    id 'com.android.application'
+    id 'org.jetbrains.kotlin.android'
+    id 'dev.flutter.flutter-gradle-plugin'
 }
 
 // Load versioning from local.properties (optional)
 def localProperties = new Properties()
-def localPropertiesFile = rootProject.file("local.properties")
+def localPropertiesFile = rootProject.file('local.properties')
 if (localPropertiesFile.exists()) {
-    localPropertiesFile.withReader("UTF-8") { reader -> localProperties.load(reader) }
+    localPropertiesFile.withReader('UTF-8') { reader -> localProperties.load(reader) }
 }
-def flutterVersionCode = (localProperties.getProperty("flutter.versionCode") ?: "1") as String
-def flutterVersionName = (localProperties.getProperty("flutter.versionName") ?: "1.0") as String
+def flutterVersionCode = (localProperties.getProperty('flutter.versionCode') ?: '1') as String
+def flutterVersionName = (localProperties.getProperty('flutter.versionName') ?: '1.0') as String
 
 // PUBLIC_INTERFACE
 android {
@@ -19,24 +19,24 @@ android {
      * Android build configuration for the Flutter app.
      * Using modern Gradle DSL with explicit compile/target SDK 34 and Java/Kotlin 17.
      */
-    namespace "com.example.mobileapp"
+    namespace 'com.example.mobileapp'
     compileSdk 34
 
     defaultConfig {
-        applicationId "com.example.mobileapp"
+        applicationId 'com.example.mobileapp'
         minSdk 21
         targetSdk 34
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
         multiDexEnabled true
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
     }
 
     buildTypes {
         release {
             minifyEnabled false
             shrinkResources false
-            proguardFiles getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro"
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
         debug {
             minifyEnabled false
@@ -48,20 +48,20 @@ android {
         targetCompatibility JavaVersion.VERSION_17
     }
     kotlinOptions {
-        jvmTarget = "17"
+        jvmTarget = '17'
     }
     packagingOptions {
         resources {
-            excludes += ["/META-INF/{AL2.0,LGPL2.1}", "META-INF/DEPENDENCIES"]
+            excludes += ['/META-INF/{AL2.0,LGPL2.1}', 'META-INF/DEPENDENCIES']
         }
     }
 }
 
 // Keep dependencies with explicit versions; repositories are managed in settings.gradle
 dependencies {
-    implementation "org.jetbrains.kotlin:kotlin-stdlib:2.0.21"
-    implementation "androidx.multidex:multidex:2.0.1"
-    implementation "androidx.core:core-ktx:1.13.1"
-    implementation "androidx.appcompat:appcompat:1.7.0"
-    implementation "com.google.android.material:material:1.12.0"
+    implementation 'org.jetbrains.kotlin:kotlin-stdlib:2.0.21'
+    implementation 'androidx.multidex:2.0.1'
+    implementation 'androidx.core:core-ktx:1.13.1'
+    implementation 'androidx.appcompat:1.7.0'
+    implementation 'com.google.android.material:1.12.0'
 }

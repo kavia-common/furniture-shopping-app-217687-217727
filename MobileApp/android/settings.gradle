@@ -1,21 +1,13 @@
 pluginManagement {
     // Ensure plugin repositories are available to resolve plugins via the plugins DSL
     repositories {
-        // Keep standard sources
         google()
         mavenCentral()
         gradlePluginPortal()
-        // Add Flutter Android artifacts repository
+        // Flutter Maven repo for io.flutter artifacts
         maven { url 'https://storage.googleapis.com/download.flutter.io' }
     }
-    // Explicit plugin versions so module build files can resolve without legacy buildscript
-    plugins {
-        id("com.android.application") version "8.6.1"
-        id("org.jetbrains.kotlin.android") version "2.0.21"
-        // Flutter Gradle plugin is resolved from the local Flutter SDK via includeBuild below.
-        // Do not declare an explicit version here to avoid resolution conflicts.
-        id("dev.flutter.flutter-gradle-plugin")
-    }
+    // No explicit versions in settings; plugins block can be omitted to avoid conflicts.
 }
 
 // Read flutter.sdk from local.properties for local plugin resolution
@@ -41,9 +33,9 @@ dependencyResolutionManagement {
     // Prefer project-level repositories to allow plugin-added repos (e.g., Flutter)
     repositoriesMode.set(RepositoriesMode.PREFER_PROJECT)
     repositories {
-        // Ensure standard sources and Flutter artifacts repository are present
         google()
         mavenCentral()
+        // Flutter Maven repo for io.flutter artifacts
         maven { url 'https://storage.googleapis.com/download.flutter.io' }
     }
 }
