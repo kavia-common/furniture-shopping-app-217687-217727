@@ -1,0 +1,1 @@
+/home/kavia/workspace/code-generation/furniture-shopping-app-217687-217727/MobileApp/android/app/build/intermediates/cxx/RelWithDebInfo/3g1n1f35/obj/x86_64

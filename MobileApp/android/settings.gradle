@@ -13,25 +13,11 @@ pluginManagement {
   }
 }
 
-// Load flutter.sdk from local.properties; fallback to env or /opt/flutter
-def flutterSdk = {
-  def props = new Properties()
-  def propsFile = new File(rootDir, "local.properties")
-  if (propsFile.exists()) {
-    propsFile.withInputStream { stream -> props.load(stream) }
-  }
-  def sdk = props.getProperty("flutter.sdk")
-  if (sdk == null || sdk.trim().isEmpty()) {
-    sdk = System.getenv("FLUTTER_HOME")
-  }
-  if (sdk == null || sdk.trim().isEmpty()) {
-    sdk = "/opt/flutter"
-  }
-  return sdk
-}.call()
-
-// Keep Flutter tools included for dev.flutter.flutter-gradle-plugin
-includeBuild("${flutterSdk}/packages/flutter_tools/gradle")
+def props = new Properties()
+def lp = file('local.properties')
+if (lp.exists()) lp.withInputStream { props.load(it) }
+def flutterSdk = props.getProperty('flutter.sdk', System.getenv('FLUTTER_HOME'))
+if (flutterSdk != null) includeBuild("${flutterSdk}/packages/flutter_tools/gradle")
 
 dependencyResolutionManagement {
   // Prefer settings repositories to ensure CI plugin/dependency resolution consistency

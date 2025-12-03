@@ -1,0 +1,1 @@
+ /home/kavia/workspace/code-generation/furniture-shopping-app-217687-217727/MobileApp/.dart_tool/flutter_build/a97e2635143bb692c2edeab7fde1e7e9/native_assets.json: 

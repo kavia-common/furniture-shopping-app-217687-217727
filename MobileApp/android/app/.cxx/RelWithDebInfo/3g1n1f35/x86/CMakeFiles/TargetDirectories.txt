@@ -1,0 +1,2 @@
+/home/kavia/workspace/code-generation/furniture-shopping-app-217687-217727/MobileApp/android/app/.cxx/RelWithDebInfo/3g1n1f35/x86/CMakeFiles/edit_cache.dir
+/home/kavia/workspace/code-generation/furniture-shopping-app-217687-217727/MobileApp/android/app/.cxx/RelWithDebInfo/3g1n1f35/x86/CMakeFiles/rebuild_cache.dir

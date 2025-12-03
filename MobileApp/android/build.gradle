@@ -1,9 +1,7 @@
 /*
  Root Gradle build file for the Android portion of the Flutter app.
 
- Repositories and plugin versions are managed centrally in settings.gradle via:
- - pluginManagement { repositories { ... } }
- - dependencyResolutionManagement { repositories { ... } }
+ Repositories and plugin versions are managed centrally in settings.gradle.
 
  This file intentionally avoids declaring repositories or buildscript classpaths.
  Keep only the clean task here to prevent conflicts with settings.gradle.
