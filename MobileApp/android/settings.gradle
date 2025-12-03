@@ -1,49 +1,24 @@
 pluginManagement {
-    // Ensure plugin repositories are available to resolve plugins via the plugins DSL
-    repositories {
-        google()
-        mavenCentral()
-        gradlePluginPortal()
-        // Flutter Maven repo for io.flutter artifacts
-        maven { url 'https://storage.googleapis.com/download.flutter.io' }
-    }
-    // Explicit versions for plugins resolved via the plugins DSL
-    plugins {
-        id("com.android.application") version "8.6.1"
-        id("org.jetbrains.kotlin.android") version "2.0.21"
-        // Flutter Gradle plugin is resolved via includeBuild below; no version needed here.
-    }
+  repositories {
+    google()
+    mavenCentral()
+    gradlePluginPortal()
+  }
+  plugins {
+    id("com.android.application") version "8.6.1"
+    id("org.jetbrains.kotlin.android") version "2.0.21"
+  }
 }
-
-// Read flutter.sdk from local.properties for local plugin resolution
-def flutterSdk = null
-def localPropertiesFile = new File(rootDir, "local.properties")
-if (localPropertiesFile.exists()) {
-    def Properties p = new Properties()
-    localPropertiesFile.withInputStream { is -> p.load(is) }
-    def lpFlutter = p.getProperty("flutter.sdk")
-    if (lpFlutter != null && !lpFlutter.trim().isEmpty()) {
-        flutterSdk = lpFlutter
-    }
-}
-
-// Include Flutter tools Gradle build to resolve dev.flutter.flutter-gradle-plugin locally
-if (flutterSdk != null && new File(flutterSdk).exists()) {
-    includeBuild("${flutterSdk}/packages/flutter_tools/gradle")
-} else {
-    println("Warning: Flutter SDK path not found in local.properties (flutter.sdk). Set it to enable dev.flutter.flutter-gradle-plugin.")
-}
-
+def flutterSdk = new Properties().with { p ->
+  def f = new File(rootDir, "local.properties"); if (f.exists()) p.load(new FileInputStream(f)); return p;
+}.getProperty("flutter.sdk", System.getenv("FLUTTER_HOME") ?: "/opt/flutter")
+includeBuild("${flutterSdk}/packages/flutter_tools/gradle")
 dependencyResolutionManagement {
-    // Prefer project-level repositories to allow plugin-added repos (e.g., Flutter)
-    repositoriesMode.set(RepositoriesMode.PREFER_PROJECT)
-    repositories {
-        google()
-        mavenCentral()
-        // Flutter Maven repo for io.flutter artifacts
-        maven { url 'https://storage.googleapis.com/download.flutter.io' }
-    }
+  repositoriesMode.set(RepositoriesMode.PREFER_SETTINGS)
+  repositories {
+    google()
+    mavenCentral()
+    maven { url 'https://storage.googleapis.com/download.flutter.io' }
+  }
 }
-
-rootProject.name = "MobileApp"
 include(":app")
