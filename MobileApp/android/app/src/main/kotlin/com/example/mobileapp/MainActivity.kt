@@ -1,10 +1,16 @@
 package com.example.mobileapp
 
-import io.flutter.embedding.android.FlutterActivity
+import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 
 // PUBLIC_INTERFACE
 /**
- * Main entry Activity for the Flutter application on Android.
- * Uses Flutter Embedding v2 by extending FlutterActivity with no overrides.
+ * Main entry Activity for the Android application (non-Flutter).
+ * Displays a simple layout defined in res/layout/activity_main.xml.
  */
-class MainActivity: FlutterActivity()
+class MainActivity : AppCompatActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+    }
+}

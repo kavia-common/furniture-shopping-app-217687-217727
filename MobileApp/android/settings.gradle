@@ -3,33 +3,18 @@ pluginManagement {
     google()
     mavenCentral()
     gradlePluginPortal()
-    maven { url 'https://storage.googleapis.com/download.flutter.io' }
   }
   plugins {
     id('com.android.application') version '8.6.1'
     id('org.jetbrains.kotlin.android') version '2.0.21'
-    // Make Flutter Gradle plugin id visible via included build
-    id('dev.flutter.flutter-gradle-plugin')
   }
 }
 
-def props = new Properties()
-def lp = file('local.properties')
-if (lp.exists()) {
-  lp.withInputStream { props.load(it) }
-}
-def flutterSdk = props.getProperty('flutter.sdk')
-if (flutterSdk == null || flutterSdk.trim().isEmpty()) {
-  throw new GradleException("Missing 'flutter.sdk' in local.properties. Ensure local.properties contains a valid flutter.sdk path.")
-}
-includeBuild("${flutterSdk}/packages/flutter_tools/gradle")
-
 dependencyResolutionManagement {
-  repositoriesMode.set(RepositoriesMode.PREFER_PROJECT)
+  repositoriesMode.set(RepositoriesMode.PREFER_SETTINGS)
   repositories {
     google()
     mavenCentral()
-    maven { url 'https://storage.googleapis.com/download.flutter.io' }
   }
 }
 
