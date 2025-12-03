@@ -6,9 +6,8 @@ pluginManagement {
     maven { url 'https://storage.googleapis.com/download.flutter.io' }
   }
   plugins {
-    id 'com.android.application' version '8.6.1'
-    id 'org.jetbrains.kotlin.android' version '1.9.24'
-    // Flutter plugin is added via includeBuild below
+    id('com.android.application') version '8.6.1'
+    id('org.jetbrains.kotlin.android') version '2.0.21'
   }
 }
 
@@ -21,7 +20,7 @@ def flutterSdk = props.getProperty('flutter.sdk')
 includeBuild("${flutterSdk}/packages/flutter_tools/gradle")
 
 dependencyResolutionManagement {
-  repositoriesMode = RepositoriesMode.PREFER_PROJECT
+  repositoriesMode.set(RepositoriesMode.PREFER_SETTINGS)
   repositories {
     google()
     mavenCentral()
@@ -29,4 +28,4 @@ dependencyResolutionManagement {
   }
 }
 
-include(":app")
+include(':app')
