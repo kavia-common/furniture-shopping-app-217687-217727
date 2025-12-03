@@ -31,6 +31,11 @@ android {
 }
 
 dependencies {
+  // Ensure Flutter embedding classes are available during Kotlin compilation.
+  // The artifacts are resolved from the Flutter Maven repo configured in settings.gradle / allprojects.
+  debugImplementation 'io.flutter:flutter_embedding_debug:1.0.0'
+  releaseImplementation 'io.flutter:flutter_embedding_release:1.0.0'
+
   implementation 'androidx.multidex:multidex:2.0.1'
   implementation 'androidx.core:core-ktx:1.13.1'
   implementation 'androidx.appcompat:appcompat:1.7.0'
