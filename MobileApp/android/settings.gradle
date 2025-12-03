@@ -20,7 +20,7 @@ def flutterSdk = props.getProperty('flutter.sdk')
 includeBuild("${flutterSdk}/packages/flutter_tools/gradle")
 
 dependencyResolutionManagement {
-  repositoriesMode.set(RepositoriesMode.PREFER_SETTINGS)
+  repositoriesMode.set(RepositoriesMode.PREFER_PROJECT)
   repositories {
     google()
     mavenCentral()
