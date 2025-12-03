@@ -4,10 +4,11 @@ pluginManagement {
         mavenCentral()
         gradlePluginPortal()
     }
-    // Define plugin versions here so modules can apply plugins without local classpath/repositories.
+    // Define plugin versions centrally
     plugins {
         id("com.android.application") version "8.6.1"
         id("org.jetbrains.kotlin.android") version "2.0.21"
+        id("dev.flutter.flutter-gradle-plugin") version "1.0.0"
     }
 }
 
@@ -16,7 +17,6 @@ dependencyResolutionManagement {
     repositories {
         google()
         mavenCentral()
-        gradlePluginPortal()
     }
 }
 
