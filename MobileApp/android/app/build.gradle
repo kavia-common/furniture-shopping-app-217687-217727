@@ -1,7 +1,7 @@
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
-    // Apply Flutter plugin without an explicit version; resolved via includeBuild in settings.gradle
+    // Flutter plugin resolved via includeBuild in settings.gradle
     id("dev.flutter.flutter-gradle-plugin")
 }
 
@@ -21,14 +21,16 @@ android {
     /**
      * Android build configuration for the Flutter app.
      * Ensures namespace and SDK versions are defined locally so Gradle can resolve compileSdk.
+     *
+     * Using modern Gradle DSL with explicit compile/target SDK 34 and Java/Kotlin 17.
      */
     namespace "com.example.mobileapp"
-    compileSdkVersion 34
+    compileSdk = 34
 
     defaultConfig {
         applicationId "com.example.mobileapp"
-        minSdkVersion 21
-        targetSdkVersion 34
+        minSdk = 21
+        targetSdk = 34
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
         multiDexEnabled true
