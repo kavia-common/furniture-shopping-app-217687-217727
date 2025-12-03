@@ -1,6 +1,7 @@
 pluginManagement {
     // Ensure plugin repositories are available to resolve plugins via the plugins DSL
     repositories {
+        // Both pluginManagement and dependencyResolutionManagement must include these
         google()
         mavenCentral()
         gradlePluginPortal()
@@ -9,7 +10,8 @@ pluginManagement {
     plugins {
         id("com.android.application") version "8.6.1"
         id("org.jetbrains.kotlin.android") version "2.0.21"
-        // dev.flutter.flutter-gradle-plugin is resolved from local includeBuild below
+        // Explicitly declare the Flutter Gradle plugin version for metadata; actual resolution via includeBuild below
+        id("dev.flutter.flutter-gradle-plugin") version "1.0.0"
     }
 }
 
@@ -33,9 +35,10 @@ if (flutterSdk != null && new File(flutterSdk).exists()) {
 }
 
 dependencyResolutionManagement {
-    // Prefer settings repositories, but not strict FAIL_ON_PROJECT_REPOS; allow Flutter to add its own repos.
+    // Prefer settings repositories to avoid plugin adding project-level repositories
     repositoriesMode.set(RepositoriesMode.PREFER_SETTINGS)
     repositories {
+        // Ensure both google and mavenCentral and gradlePluginPortal are present
         google()
         mavenCentral()
         gradlePluginPortal()

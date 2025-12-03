@@ -1,0 +1,10 @@
+{
+  "name": "backendapi-shim",
+  "version": "1.0.0",
+  "private": true,
+  "description": "NPM shim to start FastAPI via uvicorn for environments that force npm start.",
+  "scripts": {
+    "start": "bash start.sh",
+    "start:dev": "bash start.sh"
+  }
+}
