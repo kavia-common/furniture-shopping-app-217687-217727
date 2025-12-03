@@ -6,6 +6,11 @@ pluginManagement {
     gradlePluginPortal()
     maven { url 'https://storage.googleapis.com/download.flutter.io' }
   }
+  // Explicit plugin versions so Gradle can resolve without legacy buildscript
+  plugins {
+    id('com.android.application') version '8.6.1'
+    id('org.jetbrains.kotlin.android') version '2.0.21'
+  }
 }
 
 // Load flutter.sdk from local.properties; fallback to env or /opt/flutter
