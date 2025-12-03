@@ -1,38 +1,17 @@
 plugins {
-  // Android application plugin
   id 'com.android.application'
-  // Kotlin Android plugin
   id 'org.jetbrains.kotlin.android'
-  // Flutter Gradle plugin provides flutter-embedding artifacts and tasks
   id 'dev.flutter.flutter-gradle-plugin'
 }
 
-/**
- * PUBLIC_INTERFACE
- * Android configuration for the Flutter application.
- * - compileSdk: 34
- * - minSdk/targetSdk: 21/34
- * - Kotlin jvmTarget: 17
- * - Release: minifyEnabled=false, shrinkResources=false
- */
 android {
   namespace 'com.example.mobileapp'
   compileSdk 34
   defaultConfig {
-    applicationId 'com.example.mobileapp'
     minSdk 21
     targetSdk 34
-    versionCode 1
-    versionName '1.0'
-    multiDexEnabled true
-  }
-  compileOptions {
-    // Target Java 17 per request
-    sourceCompatibility JavaVersion.VERSION_17
-    targetCompatibility JavaVersion.VERSION_17
   }
   kotlinOptions {
-    // Align Kotlin jvmTarget with Java toolchain
     jvmTarget = '17'
   }
   buildTypes {
@@ -41,16 +20,4 @@ android {
       shrinkResources false
     }
   }
-}
-
-dependencies {
-  // AndroidX and Material dependencies with explicit versions
-  implementation 'androidx.multidex:multidex:2.0.1'
-  implementation 'androidx.core:core-ktx:1.13.1'
-  implementation 'androidx.appcompat:appcompat:1.7.0'
-  implementation 'com.google.android.material:material:1.12.0'
-
-  // Ensure Flutter embedding classes (FlutterActivity etc.) are available during compilation
-  // Artifacts are served from https://storage.googleapis.com/download.flutter.io configured in repositories
-  implementation 'io.flutter:flutter_embedding_release:1.0.0'
 }
