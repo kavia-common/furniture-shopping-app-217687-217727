@@ -7,6 +7,11 @@ pluginManagement {
     // Flutter artifacts repository (kept last to avoid overshadowing)
     maven { url 'https://storage.googleapis.com/download.flutter.io' }
   }
+  // Explicit plugin versions to ensure CI resolution
+  plugins {
+    id "com.android.application" version "8.6.1"
+    id "org.jetbrains.kotlin.android" version "2.0.21"
+  }
 }
 
 // Read flutter.sdk from local.properties to include Flutter toolchain build
@@ -26,8 +31,8 @@ if (flutterSdk != null && flutterSdk.trim()) {
 }
 
 dependencyResolutionManagement {
-  // Prefer project repositories so Flutter plugin can add its internal repository
-  repositoriesMode.set(RepositoriesMode.PREFER_PROJECT)
+  // Prefer settings to define repositories to keep them centralized
+  repositoriesMode.set(RepositoriesMode.PREFER_SETTINGS)
   repositories {
     // Keep Google and Maven Central first
     google()
