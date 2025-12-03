@@ -1,8 +1,8 @@
 plugins {
-  // Apply Flutter plugin first so it can contribute classpath/config before Android compilation
-  id 'dev.flutter.flutter-gradle-plugin'
+  // Apply Android and Kotlin plugins first so 'android' extension exists when Flutter plugin configures
   id 'com.android.application'
   id 'org.jetbrains.kotlin.android'
+  id 'dev.flutter.flutter-gradle-plugin'
 }
 
 // Configure Flutter extension so the plugin can locate the Flutter project root
