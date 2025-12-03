@@ -1,11 +1,11 @@
 pluginManagement {
+    // Ensure plugin repositories are available to resolve plugins via the plugins DSL
     repositories {
         google()
         mavenCentral()
         gradlePluginPortal()
     }
-    // Fallback explicit versions if CI environment cannot discover com.android.application
-    // via the local cache. These will be used only if module build files don't specify versions.
+    // Explicit plugin versions so module build files can resolve without legacy buildscript
     plugins {
         id("com.android.application") version "8.6.1"
         id("org.jetbrains.kotlin.android") version "2.0.21"
@@ -33,9 +33,8 @@ if (flutterSdk != null && new File(flutterSdk).exists()) {
 }
 
 dependencyResolutionManagement {
-    // Prefer allowing project repositories so Flutter's Gradle plugin can add its own as needed.
-    // Using PREFER_PROJECT to avoid build failures introduced by FAIL_ON_PROJECT_REPOS.
-    repositoriesMode.set(RepositoriesMode.PREFER_PROJECT)
+    // Prefer settings repositories, but not strict FAIL_ON_PROJECT_REPOS; allow Flutter to add its own repos.
+    repositoriesMode.set(RepositoriesMode.PREFER_SETTINGS)
     repositories {
         google()
         mavenCentral()
