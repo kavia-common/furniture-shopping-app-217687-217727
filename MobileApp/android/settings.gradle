@@ -19,6 +19,9 @@ if (lp.exists()) {
   lp.withInputStream { props.load(it) }
 }
 def flutterSdk = props.getProperty('flutter.sdk')
+if (flutterSdk == null || flutterSdk.trim().isEmpty()) {
+  throw new GradleException("Missing 'flutter.sdk' in local.properties. Ensure local.properties contains a valid flutter.sdk path.")
+}
 includeBuild("${flutterSdk}/packages/flutter_tools/gradle")
 
 dependencyResolutionManagement {
