@@ -1,15 +1,13 @@
-buildscript {
-    ext.kotlin_version = '2.0.21'
-    // No repositories here when using settings repositories preference.
-    dependencies {
-        // Keep only buildscript classpaths as needed by AGP/Kotlin; repositories resolved via settings.gradle
-        classpath 'com.android.tools.build:gradle:8.6.1'
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:${kotlin_version}"
-    }
-}
+/*
+ Root Gradle build file for the Android portion of the Flutter app.
 
-// Remove allprojects { repositories { ... } } to comply with settings-level repository management.
+ Repositories are managed centrally in settings.gradle via:
+ - pluginManagement { repositories { ... } plugins { ... } }
+ - dependencyResolutionManagement { repositories { ... } }
+
+ This file intentionally avoids declaring repositories or buildscript classpaths.
+*/
 
 tasks.register("clean", Delete) {
-    delete rootProject.layout.buildDirectory
+    delete(rootProject.layout.buildDirectory)
 }

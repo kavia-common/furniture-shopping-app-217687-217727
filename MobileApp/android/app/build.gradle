@@ -1,6 +1,6 @@
 plugins {
     id "com.android.application"
-    id "kotlin-android"
+    id "org.jetbrains.kotlin.android"
 }
 
 // Load Flutter SDK path from local.properties and apply flutter gradle
