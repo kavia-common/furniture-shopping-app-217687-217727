@@ -4,6 +4,7 @@ pluginManagement {
         mavenCentral()
         gradlePluginPortal()
     }
+    // Do not map dev.flutter.flutter-gradle-plugin to any explicit version here.
 }
 
 dependencyResolutionManagement {

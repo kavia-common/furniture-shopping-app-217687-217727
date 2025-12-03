@@ -1,10 +1,11 @@
 plugins {
-    id "com.android.application"
-    id "org.jetbrains.kotlin.android"
-    id "dev.flutter.flutter-gradle-plugin"
+    id("com.android.application")
+    id("org.jetbrains.kotlin.android")
+    // Use Flutter's new plugin without hardcoding version
+    id("dev.flutter.flutter-gradle-plugin")
 }
 
-// Load Flutter SDK path from local.properties for versioning only (no apply from)
+// Load Flutter SDK path from local.properties to derive versioning (no legacy apply from)
 def localProperties = new Properties()
 def localPropertiesFile = rootProject.file("local.properties")
 if (localPropertiesFile.exists()) {
@@ -15,8 +16,12 @@ if (localPropertiesFile.exists()) {
 def flutterVersionCode = localProperties.getProperty("flutter.versionCode") ?: "1"
 def flutterVersionName = localProperties.getProperty("flutter.versionName") ?: "1.0"
 
+// PUBLIC_INTERFACE
 android {
-    // Required defaults
+    /**
+     * Android build configuration for the Flutter app.
+     * Ensures namespace and SDK versions are defined locally so Gradle can resolve compileSdk.
+     */
     namespace "com.example.mobileapp"
     compileSdkVersion 34
 
@@ -32,7 +37,7 @@ android {
 
     buildTypes {
         release {
-            // Keep release simple for now; shrinking can be revisited after migration
+            // Keep release simple; R8/Proguard tuning can be adjusted later
             minifyEnabled false
             shrinkResources false
             proguardFiles getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro"
@@ -59,7 +64,7 @@ android {
     }
 }
 
-// No repositories block here; repositories are managed in settings.gradle
+// Keep dependencies with explicit versions; repositories are managed in settings.gradle
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib:2.0.21"
     implementation "androidx.multidex:multidex:2.0.1"
