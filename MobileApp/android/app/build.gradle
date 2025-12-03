@@ -57,11 +57,13 @@ android {
     }
 }
 
-// Keep dependencies with explicit versions; repositories are managed in settings.gradle
+/**
+ * Keep dependencies with explicit versions; repositories are managed in settings.gradle.
+ * Kotlin stdlib is provided automatically by the Kotlin Gradle plugin; no need to declare.
+ */
 dependencies {
-    implementation 'org.jetbrains.kotlin:kotlin-stdlib:2.0.21'
-    implementation 'androidx.multidex:2.0.1'
-    implementation 'androidx.core:core-ktx:1.13.1'
-    implementation 'androidx.appcompat:1.7.0'
-    implementation 'com.google.android.material:1.12.0'
+    implementation "androidx.multidex:multidex:2.0.1"
+    implementation "androidx.core:core-ktx:1.13.1"
+    implementation "androidx.appcompat:appcompat:1.7.0"
+    implementation "com.google.android.material:material:1.12.0"
 }

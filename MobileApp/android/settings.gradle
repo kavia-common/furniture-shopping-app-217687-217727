@@ -7,7 +7,12 @@ pluginManagement {
         // Flutter Maven repo for io.flutter artifacts
         maven { url 'https://storage.googleapis.com/download.flutter.io' }
     }
-    // No explicit versions in settings; plugins block can be omitted to avoid conflicts.
+    // Explicit versions for plugins resolved via the plugins DSL
+    plugins {
+        id("com.android.application") version "8.6.1"
+        id("org.jetbrains.kotlin.android") version "2.0.21"
+        // Flutter Gradle plugin is resolved via includeBuild below; no version needed here.
+    }
 }
 
 // Read flutter.sdk from local.properties for local plugin resolution
