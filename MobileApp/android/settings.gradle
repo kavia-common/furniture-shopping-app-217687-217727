@@ -25,8 +25,8 @@ if (flutterSdk != null) {
 }
 
 dependencyResolutionManagement {
-  // Allow project/plugins to add their own repositories when necessary (Flutter plugin adds a maven repo).
-  repositoriesMode.set(RepositoriesMode.PREFER_PROJECT)
+  // Switch to PREFER_SETTINGS to resolve dependencies deterministically from settings repositories
+  repositoriesMode.set(RepositoriesMode.PREFER_SETTINGS)
   repositories {
     // Keep google and mavenCentral first so standard artifacts resolve there
     google()
