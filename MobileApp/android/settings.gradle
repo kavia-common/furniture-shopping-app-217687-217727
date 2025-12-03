@@ -33,10 +33,13 @@ if (flutterSdk != null && new File(flutterSdk).exists()) {
 }
 
 dependencyResolutionManagement {
-    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+    // Prefer allowing project repositories so Flutter's Gradle plugin can add its own as needed.
+    // Using PREFER_PROJECT to avoid build failures introduced by FAIL_ON_PROJECT_REPOS.
+    repositoriesMode.set(RepositoriesMode.PREFER_PROJECT)
     repositories {
         google()
         mavenCentral()
+        gradlePluginPortal()
     }
 }
 
