@@ -21,13 +21,24 @@ android {
     targetCompatibility JavaVersion.VERSION_17
   }
   kotlinOptions { jvmTarget = "17" }
-  buildTypes { 
-    release { 
-      minifyEnabled false 
-    } 
+  buildTypes {
+    release {
+      // Ensure resource shrinking is disabled unless code shrinking is enabled.
+      minifyEnabled false
+      shrinkResources false
+    }
+    debug {
+      // Keep defaults appropriate for debug
+      minifyEnabled false
+      shrinkResources false
+    }
   }
 }
 
 dependencies {
+  // Explicit AndroidX dependencies to resolve Kotlin stdlib transitively via AndroidX
   implementation "androidx.multidex:multidex:2.0.1"
+  implementation "androidx.core:core-ktx:1.13.1"
+  implementation "androidx.appcompat:appcompat:1.7.0"
+  implementation "com.google.android.material:material:1.12.0"
 }
