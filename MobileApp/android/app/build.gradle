@@ -17,18 +17,20 @@ android {
     multiDexEnabled true
   }
   compileOptions {
+    // Target Java 17 per request
     sourceCompatibility JavaVersion.VERSION_17
     targetCompatibility JavaVersion.VERSION_17
   }
-  kotlinOptions { jvmTarget = "17" }
+  kotlinOptions {
+    // Align Kotlin jvmTarget with Java toolchain
+    jvmTarget = "17"
+  }
   buildTypes {
     release {
-      // Ensure resource shrinking is disabled unless code shrinking is enabled.
       minifyEnabled false
       shrinkResources false
     }
     debug {
-      // Keep defaults appropriate for debug
       minifyEnabled false
       shrinkResources false
     }
@@ -36,7 +38,10 @@ android {
 }
 
 dependencies {
-  // Explicit AndroidX dependencies to resolve Kotlin stdlib transitively via AndroidX
+  // Explicit Kotlin stdlib to avoid transitive mismatch on newer Kotlin toolchains
+  implementation "org.jetbrains.kotlin:kotlin-stdlib:2.0.21"
+
+  // AndroidX and Material dependencies with explicit versions
   implementation "androidx.multidex:multidex:2.0.1"
   implementation "androidx.core:core-ktx:1.13.1"
   implementation "androidx.appcompat:appcompat:1.7.0"

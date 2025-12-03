@@ -1,5 +1,6 @@
 pluginManagement {
   repositories {
+    // Deterministic plugin resolution sources
     google()
     mavenCentral()
     gradlePluginPortal()
@@ -7,7 +8,7 @@ pluginManagement {
   }
 }
 
-// Load flutter.sdk from local.properties using a robust approach that avoids null File constructor args.
+// Load flutter.sdk from local.properties; fallback to env or /opt/flutter
 def flutterSdk = {
   def props = new Properties()
   def propsFile = new File(rootDir, "local.properties")
@@ -24,9 +25,11 @@ def flutterSdk = {
   return sdk
 }.call()
 
+// Keep Flutter tools included for dev.flutter.flutter-gradle-plugin
 includeBuild("${flutterSdk}/packages/flutter_tools/gradle")
 
 dependencyResolutionManagement {
+  // Prefer repositories declared in project build files; switch to PREFER_SETTINGS if CI conflicts
   repositoriesMode.set(RepositoriesMode.PREFER_PROJECT)
   repositories {
     google()
