@@ -1,5 +1,6 @@
 package com.example.mobileapp
 
+// Use explicit import for FlutterActivity from Flutter embedding.
 import io.flutter.embedding.android.FlutterActivity
 
 // PUBLIC_INTERFACE
