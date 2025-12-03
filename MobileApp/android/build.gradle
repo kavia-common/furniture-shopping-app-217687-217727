@@ -5,6 +5,7 @@ buildscript {
         mavenCentral()
     }
     dependencies {
+        // Use AGP compatible with Gradle wrapper (Gradle 8.12 supports AGP 8.6.x)
         classpath 'com.android.tools.build:gradle:8.6.1'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:${kotlin_version}"
     }
