@@ -29,8 +29,8 @@ def flutterSdk = {
 includeBuild("${flutterSdk}/packages/flutter_tools/gradle")
 
 dependencyResolutionManagement {
-  // Prefer repositories declared in project build files; switch to PREFER_SETTINGS if CI conflicts
-  repositoriesMode.set(RepositoriesMode.PREFER_PROJECT)
+  // Prefer settings repositories to ensure CI plugin/dependency resolution consistency
+  repositoriesMode.set(RepositoriesMode.PREFER_SETTINGS)
   repositories {
     google()
     mavenCentral()

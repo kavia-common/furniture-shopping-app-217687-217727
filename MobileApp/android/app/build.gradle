@@ -38,9 +38,6 @@ android {
 }
 
 dependencies {
-  // Explicit Kotlin stdlib to avoid transitive mismatch on newer Kotlin toolchains
-  implementation "org.jetbrains.kotlin:kotlin-stdlib:2.0.21"
-
   // AndroidX and Material dependencies with explicit versions
   implementation "androidx.multidex:multidex:2.0.1"
   implementation "androidx.core:core-ktx:1.13.1"
