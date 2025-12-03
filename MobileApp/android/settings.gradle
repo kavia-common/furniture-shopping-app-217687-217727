@@ -33,8 +33,8 @@ if (flutterSdk != null && flutterSdk.trim()) {
 }
 
 dependencyResolutionManagement {
-  // Prefer settings to define repositories to keep them centralized
-  repositoriesMode.set(RepositoriesMode.PREFER_SETTINGS)
+  // Prefer project repositories to allow plugin-provided repositories (Flutter plugin)
+  repositoriesMode.set(RepositoriesMode.PREFER_PROJECT)
   repositories {
     // Keep Google and Maven Central first
     google()
