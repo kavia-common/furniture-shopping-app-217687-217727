@@ -7,6 +7,40 @@ pluginManagement {
     // Do not map dev.flutter.flutter-gradle-plugin to any explicit version here.
 }
 
+// Discover Flutter SDK location for resolving the gradle plugin from the local SDK.
+// Priority: FLUTTER_HOME -> $HOME/.flutter-sdk -> local.properties (fallback, if needed)
+def envFlutterHome = System.getenv("FLUTTER_HOME")
+def homeDir = System.getenv("HOME")
+def flutterSdk = null
+if (envFlutterHome != null && !envFlutterHome.trim().isEmpty()) {
+    flutterSdk = envFlutterHome
+} else if (homeDir != null && !homeDir.trim().isEmpty()) {
+    flutterSdk = new File(homeDir, ".flutter-sdk").path
+}
+
+// As a final fallback, try local.properties flutter.sdk if exists
+if (flutterSdk == null || !new File(flutterSdk).exists()) {
+    def localPropertiesFile = new File(rootDir, "local.properties")
+    if (localPropertiesFile.exists()) {
+        def Properties p = new Properties()
+        localPropertiesFile.withInputStream { is -> p.load(is) }
+        def lpFlutter = p.getProperty("flutter.sdk")
+        if (lpFlutter != null && !lpFlutter.trim().isEmpty()) {
+            flutterSdk = lpFlutter
+        }
+    }
+}
+
+// When flutterSdk is available, include the Flutter tools Gradle build so the plugin can be resolved locally.
+if (flutterSdk != null && new File(flutterSdk).exists()) {
+    includeBuild("${flutterSdk}/packages/flutter_tools/gradle")
+} else {
+    // Not fatal here; the build may still resolve the plugin if using the 'flutter' wrapper.
+    // But for CI/build containers, ensure FLUTTER_HOME or local.properties is set to the SDK.
+    println("Warning: Flutter SDK not found via FLUTTER_HOME or ~/.flutter-sdk or local.properties; " +
+            "dev.flutter.flutter-gradle-plugin may fail to resolve.")
+}
+
 dependencyResolutionManagement {
     repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
     repositories {

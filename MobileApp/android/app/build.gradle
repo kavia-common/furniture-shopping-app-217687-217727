@@ -1,7 +1,7 @@
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
-    // Use Flutter's new plugin without hardcoding version
+    // Apply Flutter plugin without an explicit version; resolved via includeBuild in settings.gradle
     id("dev.flutter.flutter-gradle-plugin")
 }
 
