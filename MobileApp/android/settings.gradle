@@ -3,16 +3,33 @@ pluginManagement {
     google()
     mavenCentral()
     gradlePluginPortal()
+    maven { url 'https://storage.googleapis.com/download.flutter.io' }
   }
   plugins {
     id("com.android.application") version "8.6.1"
     id("org.jetbrains.kotlin.android") version "2.0.21"
   }
 }
-def flutterSdk = new Properties().with { p ->
-  def f = new File(rootDir, "local.properties"); if (f.exists()) p.load(new FileInputStream(f)); return p;
-}.getProperty("flutter.sdk", System.getenv("FLUTTER_HOME") ?: "/opt/flutter")
+
+// Load flutter.sdk from local.properties using a robust approach that avoids null File constructor args.
+def flutterSdk = {
+  def props = new Properties()
+  def propsFile = new File(rootDir, "local.properties")
+  if (propsFile.exists()) {
+    propsFile.withInputStream { stream -> props.load(stream) }
+  }
+  def sdk = props.getProperty("flutter.sdk")
+  if (sdk == null || sdk.trim().isEmpty()) {
+    sdk = System.getenv("FLUTTER_HOME")
+  }
+  if (sdk == null || sdk.trim().isEmpty()) {
+    sdk = "/opt/flutter"
+  }
+  return sdk
+}.call()
+
 includeBuild("${flutterSdk}/packages/flutter_tools/gradle")
+
 dependencyResolutionManagement {
   repositoriesMode.set(RepositoriesMode.PREFER_SETTINGS)
   repositories {
@@ -21,4 +38,5 @@ dependencyResolutionManagement {
     maven { url 'https://storage.googleapis.com/download.flutter.io' }
   }
 }
+
 include(":app")
