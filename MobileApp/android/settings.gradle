@@ -5,10 +5,6 @@ pluginManagement {
     gradlePluginPortal()
     maven { url 'https://storage.googleapis.com/download.flutter.io' }
   }
-  plugins {
-    id("com.android.application") version "8.6.1"
-    id("org.jetbrains.kotlin.android") version "2.0.21"
-  }
 }
 
 // Load flutter.sdk from local.properties using a robust approach that avoids null File constructor args.
@@ -31,7 +27,6 @@ def flutterSdk = {
 includeBuild("${flutterSdk}/packages/flutter_tools/gradle")
 
 dependencyResolutionManagement {
-  // Prefer project repositories first, but since modules have none, settings repos will be used.
   repositoriesMode.set(RepositoriesMode.PREFER_PROJECT)
   repositories {
     google()
