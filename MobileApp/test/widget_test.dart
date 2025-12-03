@@ -3,16 +3,11 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:MobileApp/main.dart';
 
 void main() {
-  testWidgets('App generation message displayed', (WidgetTester tester) async {
+  testWidgets('App builds and shows app bar title', (WidgetTester tester) async {
     await tester.pumpWidget(const MyApp());
-
-    expect(find.text('MobileApp App is being generated...'), findsOneWidget);
-    expect(find.byType(CircularProgressIndicator), findsOneWidget);
-  });
-
-  testWidgets('App bar has correct title', (WidgetTester tester) async {
-    await tester.pumpWidget(const MyApp());
-
+    // Verify the app bar title is present.
     expect(find.text('MobileApp'), findsOneWidget);
+    // Ensure at least one Scaffold exists.
+    expect(find.byType(Scaffold), findsOneWidget);
   });
 }
