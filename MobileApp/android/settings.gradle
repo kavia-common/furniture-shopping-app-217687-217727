@@ -1,20 +1,26 @@
 pluginManagement {
   repositories {
-    // Required repositories for Android/Flutter
+    // Required repositories for Android/Flutter (order matters)
     google()
     mavenCentral()
     gradlePluginPortal()
+    // Flutter artifacts repository (kept last to avoid overshadowing)
     maven { url 'https://storage.googleapis.com/download.flutter.io' }
   }
 }
 
+// Read flutter.sdk from local.properties to include Flutter toolchain build
 def props = new Properties()
 def lp = file('local.properties')
 if (lp.exists()) {
   lp.withInputStream { props.load(it) }
 }
-def flutterSdk = props.getProperty('flutter.sdk', System.getenv('FLUTTER_HOME'))
-if (flutterSdk != null) {
+def flutterSdk = props.getProperty('flutter.sdk')
+if (flutterSdk == null || flutterSdk.trim().isEmpty()) {
+  // Fallback to environment if local.properties not set
+  flutterSdk = System.getenv('FLUTTER_HOME')
+}
+if (flutterSdk != null && flutterSdk.trim()) {
   // Include Flutter tools build so dev.flutter.flutter-gradle-plugin is available
   includeBuild("${flutterSdk}/packages/flutter_tools/gradle")
 }
@@ -23,6 +29,7 @@ dependencyResolutionManagement {
   // Prefer project repositories so Flutter plugin can add its internal repository
   repositoriesMode.set(RepositoriesMode.PREFER_PROJECT)
   repositories {
+    // Keep Google and Maven Central first
     google()
     mavenCentral()
     // Keep Flutter artifacts repository available
