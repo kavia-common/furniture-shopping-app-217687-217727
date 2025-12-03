@@ -22,8 +22,8 @@ def flutterSdk = props.getProperty('flutter.sdk', System.getenv('FLUTTER_HOME'))
 if (flutterSdk != null) includeBuild("${flutterSdk}/packages/flutter_tools/gradle")
 
 dependencyResolutionManagement {
-  // Prefer settings repositories to ensure CI plugin/dependency resolution consistency
-  repositoriesMode.set(RepositoriesMode.PREFER_SETTINGS)
+  // Allow project/plugins to add their own repositories when necessary (Flutter plugin adds a maven repo).
+  repositoriesMode.set(RepositoriesMode.PREFER_PROJECT)
   repositories {
     google()
     mavenCentral()
