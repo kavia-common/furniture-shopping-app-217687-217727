@@ -1,6 +1,9 @@
 plugins {
+  // Android application plugin
   id("com.android.application")
+  // Kotlin Android plugin
   id("org.jetbrains.kotlin.android")
+  // Flutter Gradle plugin provides flutter-embedding artifacts and tasks
   id("dev.flutter.flutter-gradle-plugin")
 }
 
